@@ -1,14 +1,56 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-dark bg-primary">
   <div class="row">
-      <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
     <div class="col-md-3">
-      <select>
-        <option>Select</option>
+      <select class="browser-default custom-select" #t (change)="callType(t.value)">
+        <option disabled selected>Select</option>
+        <option value="1">Sort By Name(A-Z)</option>
+        <option value="2">Sort By Name (Z-A)</option>
+        <option value="3">Sort By Rank &#8593;</option>
+        <option value="4">Sort By Rank &#8595;</option>
       </select>
     </div>
     <div class="col-md-3">
-      <input type="search">
+      <input id="typeahead-format" type="text" class="form-control" />
     </div>
-
   </div>
 </nav>
+<br />
+<div>
+  <ng-container>
+    <div class="card">
+      <div class="card-body">
+        <img>
+
+        <div class="accordion" id="accordionExample">
+          <div class="row">
+            <img src="https://avatars0.githubusercontent.com/u/1?v=4" alt="Avatar" style="width:200px">
+            <button class="btn btn-link" type="button" (click)="onCollapse()">
+              View Details
+            </button>
+
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body" *ngIf="collapse">
+              <table>
+                <tr>
+                  <th>Data Lable</th>
+                  <th>Data Value</th>
+                </tr>
+                <tr>
+                  <td>Data Lable</td>
+                  <td>Data Value</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </ng-container>
+
+
+
+</div>
