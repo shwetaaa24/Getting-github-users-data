@@ -17,39 +17,37 @@
 </nav>
 <br />
 <div>
-  <ng-container>
-    <div class="card">
+  <ng-container *ngFor="let val of data | paginate: config , let i=index">
+  <div class="container" fxLayout>
+    <div class="card" fxLayout="row">
       <div class="card-body">
-        <img>
-
-        <div class="accordion" id="accordionExample">
           <div class="row">
-            <img src="https://avatars0.githubusercontent.com/u/1?v=4" alt="Avatar" style="width:200px; border-radius: 50%">
-            <button class="btn btn-link" type="button" (click)="onCollapse()">
+            <img src="https://avatars0.githubusercontent.com/u/1?v=4" alt="Avatar"
+              style="width:200px; border-radius: 50%">
+            <button class="btn btn-link" type="button" (click)="onCollapse(i)">
               View Details
             </button>
 
           </div>
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body" *ngIf="collapse">
-              <table>
-                <tr>
-                  <th>Data Lable</th>
-                  <th>Data Value</th>
-                </tr>
-                <tr>
-                  <td>Data Lable</td>
-                  <td>Data Value</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
 
+          <div class="card-body" *ngIf="collapse">
+            <table>
+              <tr>
+                <th>Data Lable</th>
+                <th>Data Value</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Data Value</td>
+              </tr>
+            </table>
+          </div>
       </div>
     </div>
+  </div>
 
   </ng-container>
+  <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
 
 
 

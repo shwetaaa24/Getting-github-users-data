@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceService {
+export class UserService {
   userUrl = 'https://api.github.com/users';
   repoUrl = '';
 
@@ -16,5 +16,9 @@ export class UserServiceService {
 
   getRepo() {
     return this.http.get(this.repoUrl);
+  }
+  getUserName(url: string)
+  {
+    return this.http.get(url);
   }
 }

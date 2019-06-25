@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { UserServiceService } from "../services/user-service.service";
+import { UserService } from "../services/user-service.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: "app-main-layout",
@@ -11,15 +14,23 @@ export class MainLayoutComponent implements OnInit {
   data1 = [];
   model: any;
   collapse = false;
+  config: any;
 
-  constructor(private userService: UserServiceService) {}
+  constructor(private userService: UserService,
+              private router: Router,
+              private route :ActivatedRoute ) {
+                this.config = {
+                  currentPage: 1,
+                  itemsPerPage: 3
+            };
+              }
 
   ngOnInit() {
     this.userService.getData().subscribe(data => {
       this.data = data;
       console.log(this.data);
       this.data.forEach(element => {
-        this.data1.push(element.login);
+        this.data1 = element.login;
       });
     });
     console.log(this.data1);
@@ -28,17 +39,23 @@ export class MainLayoutComponent implements OnInit {
     console.log(sort1);
     let sort2 = sort1.reverse();
     console.log(sort2);
+    this.route.queryParamMap
+    .map(params => params.get('page'))
+    .subscribe(page => this.config.currentPage = page);
   }
 
   callType(val) {
     console.log(val);
   }
-  onCollapse(){
+  onCollapse(i){
     if(this.collapse){
       this.collapse = false;
     }else{
       this.collapse = true;
     }
 
+  }
+  pageChange(newPage: number) {
+    this.router.navigate([''], { queryParams: { page: newPage } });
   }
 }
