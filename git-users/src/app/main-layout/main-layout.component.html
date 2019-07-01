@@ -18,36 +18,41 @@
 <br />
 <div>
   <ng-container *ngFor="let val of data | paginate: config , let i=index">
-  <div class="container" fxLayout>
-    <div class="card" fxLayout="row">
-      <div class="card-body">
-          <div class="row">
-            <img src="https://avatars0.githubusercontent.com/u/1?v=4" alt="Avatar"
-              style="width:200px; border-radius: 50%">
-            <button class="btn btn-link" type="button" (click)="onCollapse(i)">
-              View Details
-            </button>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-8">
+            <div class="row">
+              <img src="{{val.avatar_url}}" alt="Avatar" style="width:120px; border-radius: 50%">
+              <label>{{val.url}}</label><br/>
+              {{urlArray[i]}}
+              <button class="btn btn-link" type="button" (click)="onCollapse(i)">
+                View Details{{repoArray[i]}}
+              </button>
+            </div>
 
+            <div *ngIf="collapse">
+              <table>
+                <tr>
+                  <th>Data Lable</th>
+                  <th>Data Value</th>
+                </tr>
+                <tr>
+                  <td>{{repoArray[i]}}</td>
+                  <td>xfdghfjf</td>
+                </tr>
+              </table>
+            </div>
           </div>
-
-          <div class="card-body" *ngIf="collapse">
-            <table>
-              <tr>
-                <th>Data Lable</th>
-                <th>Data Value</th>
-              </tr>
-              <tr>
-                <td></td>
-                <td>Data Value</td>
-              </tr>
-            </table>
-          </div>
+        </div>
       </div>
     </div>
-  </div>
 
   </ng-container>
-  <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+  <div class="row">
+      <div class="col-md-8"></div>
+    <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+  </div>
 
 
 

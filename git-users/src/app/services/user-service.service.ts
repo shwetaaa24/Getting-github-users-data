@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
   userUrl = 'https://api.github.com/users';
-  repoUrl = '';
+
 
   constructor(private http: HttpClient) { }
 
@@ -14,11 +14,11 @@ export class UserService {
     return this.http.get(this.userUrl);
   }
 
-  getRepo() {
-    return this.http.get(this.repoUrl);
+  getRepo(repoUrl: string) {
+    return this.http.get(repoUrl);
   }
-  getUserName(url: string)
-  {
+  getUserName(url: string){
     return this.http.get(url);
   }
+
 }

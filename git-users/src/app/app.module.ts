@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 // import { FlexLayoutModule } from '@angular/flex-layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { RouterModule, Routes } from '@angular/router';
+
 
 @NgModule({
   declarations: [
