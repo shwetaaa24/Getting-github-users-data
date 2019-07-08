@@ -3,6 +3,7 @@ import { UserService } from "../services/user-service.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-main-layout",
@@ -10,7 +11,7 @@ import "rxjs/add/operator/switchMap";
   styleUrls: ["./main-layout.component.css"]
 })
 export class MainLayoutComponent implements OnInit {
-  data: any;
+  data = [];
   data1 = [];
   model: any;
   collapse = false;
@@ -20,6 +21,8 @@ export class MainLayoutComponent implements OnInit {
   repoArray = [];
   sampleArray = [];
   newArray = [];
+  repo: Subscription;
+  dataValue:any;
   // data1: Array<string>;
 
   constructor(
@@ -35,44 +38,15 @@ export class MainLayoutComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getData().subscribe(data => {
-      this.data = data;
       console.log(this.data);
+      this.data = data;
       this.data.forEach(element => {
-        this.data1.push(element.login);
         this.urlData.push(element.url);
-        // element.url.forEach(val => {
         this.userService.getUserName(element.url).subscribe(res => {
-          console.log(res);
-          // this.urlArray.push(res.name);
+          this.urlArray.push(res["name"]);
         });
       });
-    this.data.forEach(element => {
-        this.userService.getRepo(element.repos_url).subscribe(val1 => {
-          console.log(val1);
-          this.repoArray.push(val1);
-        });
-        this.repoArray.forEach(ele => {
-          debugger;
-          ele.forEach(val=>{
-            console.log(val);
-              this.newArray.push(val.name);
-          });
-        });
-        });
     });
-    console.log(this.urlData);
-    console.log(this.urlArray);
-
-
-    console.log(this.newArray);
-    // if (this.data1) {
-    //   console.log(this.data1);
-    //   // console.log(this.data1.length);
-    //   let sort1 = [];
-    //   console.log(sort1.push(this.data1.sort()));
-    //   let sort2 = sort1.reverse();
-    //   console.log(sort2);
-    // }
 
     this.route.queryParamMap
       .map(params => params.get("page"))
@@ -81,13 +55,28 @@ export class MainLayoutComponent implements OnInit {
   callType(val) {
     console.log(val);
   }
-  onCollapse(i) {
-    if (this.collapse) {
+
+  onCollapse(val) {
+    this.sampleArray = [];
+    this.newArray = [];
+    this.dataValue = val;
+    console.log(val);
+    this.repo = this.userService.getRepo(val.repos_url).subscribe(val1 => {
+      this.newArray.push(val1);
+      this.newArray.forEach(data => {
+        data.forEach(data1 => {
+          this.sampleArray.push(data1.name);
+        });
+      });
+    });
+    if (this.collapse && this.dataValue === val) {
       this.collapse = false;
+      this.repo.unsubscribe();
     } else {
       this.collapse = true;
     }
   }
+
   pageChange(newPage: number) {
     this.router.navigate([""], { queryParams: { page: newPage } });
   }

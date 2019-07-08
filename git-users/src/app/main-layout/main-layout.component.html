@@ -15,45 +15,51 @@
     </div>
   </div>
 </nav>
-<br />
+<br/>
 <div>
-  <ng-container *ngFor="let val of data | paginate: config , let i=index">
-    <div class="container">
+  <label>Total result:{{data.length}}</label>
+  <ng-container *ngFor="let val of data| paginate:config;let i= index">
+    <!-- <div class="container"> -->
       <div class="card">
         <div class="card-body">
           <div class="col-md-8">
             <div class="row">
-              <img src="{{val.avatar_url}}" alt="Avatar" style="width:120px; border-radius: 50%">
-              <label>{{val.url}}</label><br/>
-              {{urlArray[i]}}
-              <button class="btn btn-link" type="button" (click)="onCollapse(i)">
-                View Details{{repoArray[i]}}
-              </button>
+              <div class="row">
+                <img src="{{val.avatar_url}}" alt="Avatar" style="width:120px; border-radius: 50%">
+                {{urlArray[((config.currentPage-1)*config.itemsPerPage)+i]}}
+              </div>
             </div>
-
-            <div *ngIf="collapse">
-              <table>
-                <tr>
-                  <th>Data Lable</th>
-                  <th>Data Value</th>
-                </tr>
-                <tr>
-                  <td>{{repoArray[i]}}</td>
-                  <td>xfdghfjf</td>
-                </tr>
-              </table>
-            </div>
+            <label>Profile Url:{{val.url}}</label><br/>
+            <!-- {{((config.currentPage-1)*config.itemsPerPage)+i}}
+            {{val}} -->
+            <button class="btn btn-link" type="button" (click)="onCollapse(val)">
+              View Details
+            </button>
           </div>
         </div>
       </div>
-    </div>
+      <div *ngIf="collapse">
+        <div class="row" *ngIf="dataValue === val">
+          <div class="col-md-3"></div>
+          <table class="table table-sm">
+            <tr>
+              <th>Data Lable</th>
+              <th>Data Value</th>
+            </tr>
+            <tr *ngFor="let val of sampleArray;let j=index">
+              <td>{{val}}</td>
+              <td>xfdghfjf</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    <!-- </div> -->
+
 
   </ng-container>
+
   <div class="row">
-      <div class="col-md-8"></div>
+    <div class="col-md-8"></div>
     <pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
   </div>
-
-
-
 </div>
