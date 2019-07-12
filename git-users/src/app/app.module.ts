@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { UserService} from './services/user-service.service';
 import { HttpClientModule } from '@angular/common/http';
-// import { FlexLayoutModule } from '@angular/flex-layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule} from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,7 +20,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

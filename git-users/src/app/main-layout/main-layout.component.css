@@ -1,9 +1,23 @@
-*{
-  font-family: 'Lato';
- }
+* {
+  font-family: "Lato";
+}
 
- .card {
+.card {
   margin: 0 auto;
   float: none;
+  width: 60%;
+  length:40%;
   margin-bottom: 10px;
+  align-self: center;
+  align-content: initial;
+}
+
+.router-outlet {
+  margin: 5rem;
+}
+
+.image {
+  padding-top:10px;
+  width: 120px;
+  border-radius: 150%;
 }
